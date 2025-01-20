@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #2196f3, #00bcd4);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0288d1;
+}
+
+.profile-info {
+    margin-top: 50px;
+}
+
+.photo-placeholder {
+    width: 100px;
+    height: 100px;
+    background: gray;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+.score-history {
+    margin-top: 30px;
+}

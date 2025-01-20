@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #673ab7, #2196f3);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #512da8;
+}
+
+h1 {
+    margin-top: 50px;
+}
+
+.timer {
+    width: 80%;
+    height: 10px;
+    background: black;
+    margin: 20px auto;
+}
+
+.answers button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    background-color: #03a9f4;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
