@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #ff7a59, #ff477e);
-    color: white;
+    background: #C3B091;
+    color: black;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -12,21 +12,27 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #ff5722;
+    background-color: #C3B091;
 }
 
 .logo {
-    font-size: 24px;
+    font-family: fantasy;
+    font-size: 50px;
     font-weight: bold;
 }
 
 .profile {
     color: white;
     text-decoration: none;
-    background: black;
+    background: rgba(0, 0, 0, 0.65);
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 20px;
+    cursor: pointer;
 }
+
+.profile:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
 
 .quiz-cards {
     display: flex;
@@ -41,17 +47,33 @@ header {
 }
 
 .card img {
-    width: 150px;
-    height: 150px;
-    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+    border-radius: 20px;
 }
 
 .create-quiz {
-    background: #ff477e;
+    background: rgba(245, 245, 220, 0.5);
     border: none;
     padding: 10px 20px;
-    color: white;
+    color: black;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
 }
+
+.create-quiz:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+.card {
+    background-color: rgba(245, 245, 220, 0.5);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
