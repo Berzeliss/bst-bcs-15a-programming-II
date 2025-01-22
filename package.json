@@ -1,0 +1,10 @@
+{
+  "name": "quiz-website",
+  "version": "1.0.0",
+  "description": "A quiz website with multiple pages and styles. Questions have multiple choice answers.",
+  "scripts": {
+    "start": "parcel index.html profile.html question.html"
+  },
+  "author": "Vinnie",
+  "license": "ISC"
+}
