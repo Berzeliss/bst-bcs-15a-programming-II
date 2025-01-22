@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #2196f3, #00bcd4);
-    color: white;
+    background: #C3B091;
+    color: black;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #0288d1;
+    background-color: #C3B091;
 }
 
 .profile-info {
@@ -29,4 +29,53 @@ header {
 
 .score-history {
     margin-top: 30px;
+}
+
+.back {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.back:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+.logo {
+    font-family: fantasy;
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+}
+
+.photo img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.take-quiz button {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    background-color: rgba(245, 245, 220, 0.5);
+    color: black;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.take-quiz:hover button {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+.ul {
+    margin-top: 50px;
+    text-align: center;
 }
