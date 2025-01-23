@@ -16,9 +16,19 @@ link to project [roadmap](https://docs.google.com/document/d/1XfyqtyQKthp5_TZCjp
   3. check the function's parameter
   4. call via ```<a href="{% url '{function_name}' '{parameter}' %}">```
   e.g.
-  
-  https://github.com/TinWanNg/bst-bcs-15a-programming-II/blob/fbec134aef63fb9f29875fab2c68c5dad594bdc9/class_project/quiz_app/templates/index.html#L29C13-L34C19
-
-  https://github.com/TinWanNg/bst-bcs-15a-programming-II/blob/fbec134aef63fb9f29875fab2c68c5dad594bdc9/class_project/quiz_app/views.py#L11C1-L13C54
-
+  ```
+  index.html:
+  <div class="card">
+    <a href="{% url 'quiz_list' 'History' %}">
+        <img src="{% static 'images/history-image.webp' %}" alt="History Quiz">
+        <h3>History Quiz</h3>
+    </a>
+  </div>
+  ```
+  ```
+  views.py:
+  def quiz_list(request, category):
+    context = {'quizzes': Quiz.objects.filter(category=category)}
+    return render(request, 'quiz_list.html', context)
+  ```
   In this example, ```def quiz_list(request, category)``` is the function to ```quiz_list.html```, and requires the parameter ```category```. So we call it in the ```index.html``` by ```<a href="{% url 'quiz_list' 'History' %}">```
