@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
-    <link rel="stylesheet" href="CSS/profile.css">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body>
     <header>
@@ -14,11 +16,13 @@
     <main>
         <section class="profile-info">
             <div class="photo">
-                <img src="images/placeholder.jpg" alt="Photo">
+                <img src="{% static 'images/placeholder.jpg' %}" alt="Photo">
                 </a>
             </div>
             <h2>Username</h2>
-            <p>Profile Info (e.g., birthday, email, etc.)</p>
+            <p>{{ user.username }}</p>
+            <p>{{ user.profile.bio }}</p>
+            <img src="{{ user.profile.avatar.url }}" alt="Avatar">
         </section>
         <section class="score-history">
             <h3>Score History</h3>
