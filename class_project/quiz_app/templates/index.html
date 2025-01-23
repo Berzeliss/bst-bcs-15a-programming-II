@@ -1,39 +1,52 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Website</title>
-    <link rel="stylesheet" href="CSS/homepage.css">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 </head>
 <body>
     <header>
         <div class="logo">Mind ★ Voyage</div>
         <a href="profile.html" class="profile">Profile</a>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'create_quiz' %}">Create Quiz</a></li>
+                <li>Welcome, {{ user.username }}!</li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
+        </ul>
     </header>
     <main>
         <section class="quiz-cards">
             <!-- History Quiz Button -->
             <div class="card">
-                <a href="question.html">
-                    <img src="images/history-image.webp" alt="History Quiz">
+                <a href="{% url 'quiz_list' 'History' %}">
+                    <img src="{% static 'images/history-image.webp' %}" alt="History Quiz">
                     <h3>History Quiz</h3>
                 </a>
             </div>
 
             <!-- Science Quiz Button -->
             <div class="card">
-                <a href="question.html">
-                    <img src="images/science-image.webp" alt="Science Quiz">
+                <a href="{% url 'quiz_list' 'Science' %}">
+                    <img src="{% static 'images/science-image.webp' %}" alt="Science Quiz">
                     <h3>Science Quiz</h3>
                 </a>
             </div>
         </section>
 
-        <!-- Create Your Own Quiz Button -->
+        <!-- Create Your Own Quiz Button 
         <button class="create-quiz" onclick="alert('Feature not implemented yet!')">
             Create your own quiz!
         </button>
+        -->
     </main>
 </body>
 </html>

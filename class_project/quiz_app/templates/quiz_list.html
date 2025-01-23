@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quizzes</title>
+</head>
+<body>
+    <h1>Available Quizzes</h1>
+    {% if quizzes %}
+    <ul>
+        {% for quiz in quizzes %}
+            <li><a href="{% url 'quiz' quiz.id %}">{{ quiz.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No quizzes available in this category.</p>
+    {% endif %}
+</body>
+</html>
+
