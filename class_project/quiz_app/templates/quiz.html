@@ -1,15 +1,24 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
     <title>{{ quiz.title }}</title>
 </head>
 <body>
+    <header>
+        <div class="logo">Mind ★ Voyage</div>
+        <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
+    </header>
     <h1>{{ quiz.title }}</h1>
     <p>Total Questions: {{ quiz.questions.count }}</p>
     <form method="post">
         {% csrf_token %}
         {% for question in quiz.questions.all %}
-        <p>{{ question.text }}</p>
+        <p class="question_text">{{ question.text }}</p>
             {% for answer in question.answers.all %}
             <label>
                 <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}" required>
@@ -17,7 +26,9 @@
             </label>
             {% endfor %}
         {% endfor %}
-        <button type="submit">Submit</button>
+        <div style="margin-top: 20px;">
+            <button class="submit">Submit</button>
+        </div>
     </form>
 </body>
 </html>

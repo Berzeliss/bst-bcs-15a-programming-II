@@ -1,20 +1,27 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/createquiz.css' %}">
     <title>Create quiz</title>
 </head>
 <body>
+    <header>
+        <div class="logo">Mind ★ Voyage</div>
+        <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
+    </header>
     <form method="post">
         {% csrf_token %}
         {{ quiz_form.as_p }}
-        <h3>Questions</h3>
+        <h3 class="question">Questions</h3>
         {{ question_formset.management_form }}
         {% for form in question_formset %}
             {{ form.as_p }}
         {% endfor %}
-        <button type="submit">Create Quiz</button>
+        <button class="submit">Create quiz</button>
     </form>
 </body>
 </html>
