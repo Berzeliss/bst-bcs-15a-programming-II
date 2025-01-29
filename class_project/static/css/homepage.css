@@ -10,7 +10,7 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px 20px;
     background-color: #C3B091;
 }
@@ -77,3 +77,71 @@ header {
 .card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
+
+
+.create a {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 100px;
+}
+
+.create a:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+.logout a {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 100px;
+}
+
+.logout a:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.login a {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 100px;
+}
+
+.login a:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+.menu {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.welcome {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}

@@ -1,14 +1,23 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/quiz_list.css' %}">
     <title>Quizzes</title>
 </head>
 <body>
+    <header>
+        <div class="logo">Mind ★ Voyage</div>
+        <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
+    </header>
     <h1>Available Quizzes</h1>
     {% if quizzes %}
     <ul>
         {% for quiz in quizzes %}
-            <li><a href="{% url 'quiz' quiz.id %}">{{ quiz.title }}</a></li>
+            <li class="quiz_title"><a href="{% url 'quiz' quiz.id %}">{{ quiz.title }}</a></li>
         {% endfor %}
     </ul>
     {% else %}

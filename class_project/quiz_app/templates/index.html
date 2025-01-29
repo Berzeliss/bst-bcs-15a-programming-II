@@ -11,15 +11,16 @@
 <body>
     <header>
         <div class="logo">Mind ★ Voyage</div>
-        <a href="profile.html" class="profile">Profile</a>
-        <ul>
+        <div class="right-section">
+            <a href="profile.html" class="profile">Profile</a>
+            <li class="welcome">Welcome, {{ user.username }}!</li>
+         </div>        
+        <ul class="menu">
             {% if user.is_authenticated %}
-                <li><a href="{% url 'create_quiz' %}">Create Quiz</a></li>
-                <li>Welcome, {{ user.username }}!</li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li class="menu-item create"><a href="{% url 'create_quiz' %}">Create Quiz</a></li>
+                <li class="menu-item logout"><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li class="menu-item login"><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
         </ul>
     </header>
