@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
-import time
+from django.utils import timezone 
 from django.contrib.auth.decorators import login_required
-from .forms import QuizForm, QuestionFormSet
+from .forms import *
 
 
 def index(request):
@@ -31,15 +31,64 @@ def quiz(request, quiz_id):
         user=request.user,
         quiz=quiz,
         score=user_score,
-        attempted_at=time.time()
+        attempted_at=timezone.now()
         )
 
-        result_context = {'result':result}
-        return render(request, 'result.html', result_context)
+        # Redirect to the result page after submission
+        return redirect('result', result_id=result.id)
     
     elif request.method == 'GET':
         context = {'quiz': quiz, 'questions': questions}
         return render(request, 'quiz.html', context)
+
+def result(request, result_id):
+    result = get_object_or_404(Result, id=result_id, user=request.user)
+    quiz = result.quiz
+    questions = quiz.questions.all()
+    total_score = sum(question.score for question in questions)
+
+    question_answers = []
+    for question in questions:
+        correct_answer = question.answers.filter(is_correct=True).first()
+        user_answer_id = request.POST.get(f'question_{question.id}', None)
+        user_answer = question.answers.filter(id=user_answer_id).first()
+
+        question_answers.append({
+            'question': question.text,
+            'user_answer': user_answer.text if user_answer else "No answer",
+            'correct_answer': correct_answer.text if correct_answer else "No correct answer",
+        })
+
+    percentage_score = (result.score / total_score) * 100 if total_score > 0 else 0
+
+    context = {
+        'result': result,
+        'question_answers': question_answers,
+        'total_score': total_score,
+        'percentage_score': round(percentage_score, 2)
+    }
+    return render(request, 'result.html', context)
+
+
+@login_required
+def profile(request):
+    profile = get_object_or_404(UserProfile, user=request.user)
+    results = Result.objects.filter(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=profile)
+
+    context = {
+        'profile': profile,
+        'form': form,
+        'results': results
+    }
+    return render(request, 'profile.html', context)
 
 @login_required
 def create_quiz(request):

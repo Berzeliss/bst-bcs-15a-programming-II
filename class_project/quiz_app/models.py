@@ -30,13 +30,14 @@ class Quiz(models.Model):
     def __str__(self):
         return f"{self.title} - {self.category}"
 
+"""
 @receiver(post_save, sender=Quiz)
 def update_total_score(sender, instance, created, **kwargs):
     if created:  # Only calculate total_score when the quiz is created
         total_score = sum(question.score for question in instance.questions.all())
         instance.total_score = total_score
         instance.save()  # Save the instance again to update the total_score
-
+"""
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")

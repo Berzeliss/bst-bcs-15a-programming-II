@@ -1,11 +1,43 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ quiz.title }}</title>
 </head>
 <body>
-    <h1>{{ quiz.title }} - Results</h1>
-    <p>Your Score: {{ result.score }} / {{ result.quiz.total_score }}</p>
-    <a href="{% url 'quiz_list' %}">Back to Quizzes</a>
+    <h2>Quiz Results</h2>
+
+    <p>Quiz: <strong>{{ result.quiz.title }}</strong></p>
+    <p>Your Score: <strong>{{ result.score }}/{{ total_score }}</strong></p>
+
+    {% if percentage_score >= 80 %}
+        <p>🎉 Excellent job! You scored very high!</p>
+    {% elif percentage_score >= 50 %}
+        <p>😊 Good effort! You did well.</p>
+    {% else %}
+        <p>😢 Keep practicing! You can do better next time.</p>
+    {% endif %}
+
+    <h3>Review Your Answers</h3>
+    <table>
+        <tr>
+            <th>Question</th>
+            <th>Your Answer</th>
+            <th>Correct Answer</th>
+        </tr>
+        {% for qa in question_answers %}
+        <tr>
+            <td>{{ qa.question }}</td>
+            <td>{{ qa.user_answer }}</td>
+            <td>{{ qa.correct_answer }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'index' %}">Go back to home</a>
 </body>
 </html>
+

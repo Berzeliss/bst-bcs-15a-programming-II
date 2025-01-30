@@ -10,14 +10,11 @@
 </head>
 <body>
     <header>
-        <div class="logo">Mind ★ Voyage</div>
-        <div class="right-section">
-            <a href="profile.html" class="profile">Profile</a>
-            <li class="welcome">Welcome, {{ user.username }}!</li>
-         </div>        
+        <div class="logo">Mind ★ Voyage</div>       
         <ul class="menu">
             {% if user.is_authenticated %}
-                <li class="menu-item create"><a href="{% url 'create_quiz' %}">Create Quiz</a></li>
+                <li class="welcome">Welcome, {{ user.username }}!</li>
+                <li><a href="{% url 'profile' %}" class="profile">Profile</a></li>
                 <li class="menu-item logout"><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
                 <li class="menu-item login"><a href="{% url 'login' %}">Login</a></li>
@@ -44,9 +41,9 @@
         </section>
 
         <!-- Create Your Own Quiz Button 
-        <button class="create-quiz" onclick="alert('Feature not implemented yet!')">
-            Create your own quiz!
-        </button>
+        {% if user.is_authenticated %}
+            <a href="{% url 'create_quiz' %}">Create your own quiz!</a>
+        {% endif %}
         -->
     </main>
 </body>
