@@ -17,22 +17,28 @@ def quiz(request, quiz_id):
     questions = quiz.questions.all().order_by("?")  # Randomize questions
 
     if request.method == 'POST':
-        user_answers = request.POST  # Get user-submitted answers
-        user_score = 0
-
-        for question in questions:
-            correct_answer = question.answers.filter(is_correct=True).first()
-            user_answer = user_answers.get(f'question_{question.id}')
-            
-            if str(correct_answer.id) == user_answer:
-                user_score += question.score
 
         result = Result.objects.create(
-        user=request.user,
-        quiz=quiz,
-        score=user_score,
-        attempted_at=timezone.now()
-        )
+            user=request.user, quiz=quiz, attempted_at=timezone.now()
+            )
+        
+        user_score = 0
+        for question in questions:
+            correct_answer = question.answers.filter(is_correct=True).first()
+            user_answer_id = request.POST.get(f'question_{question.id}')
+            answer = question.answers.filter(id=user_answer_id).first()
+
+            if answer:
+                UserAnswer.objects.create(
+                    result=result, question=question, answer=answer
+                    )
+
+            
+            if str(correct_answer.id) == user_answer_id:
+                user_score += question.score
+
+        result.score=user_score
+        result.save()
 
         # Redirect to the result page after submission
         return redirect('result', result_id=result.id)
@@ -50,12 +56,11 @@ def result(request, result_id):
     question_answers = []
     for question in questions:
         correct_answer = question.answers.filter(is_correct=True).first()
-        user_answer_id = request.POST.get(f'question_{question.id}', None)
-        user_answer = question.answers.filter(id=user_answer_id).first()
+        user_answer = result.user_answers.filter(question=question).first()
 
         question_answers.append({
             'question': question.text,
-            'user_answer': user_answer.text if user_answer else "No answer",
+            'user_answer': user_answer.answer.text if user_answer else "No answer",
             'correct_answer': correct_answer.text if correct_answer else "No correct answer",
         })
 

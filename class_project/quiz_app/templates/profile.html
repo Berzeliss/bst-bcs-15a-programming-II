@@ -35,7 +35,7 @@
                 {% if results %}
                 <ul>
                     {% for result in results %}
-                        <a href="{% url 'result' result.id%}">{{ result.quiz.title }} - Score: {{ result.score }}</a>
+                        <li><a href="{% url 'result' result.id%}">{{ result.quiz.title }} - Score: {{ result.score }}</a></li>
                     {% empty %}
                         <li>No quizzes attempted yet.</li>
                     {% endfor %}

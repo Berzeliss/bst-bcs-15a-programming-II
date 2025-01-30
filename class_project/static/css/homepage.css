@@ -97,10 +97,9 @@ header {
     color: white;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.65);
-    padding: 10px 40px;
+    padding: 5px 10px;
     border-radius: 20px;
     cursor: pointer;
-    margin: 100px;
 }
 
 .logout a:hover {
@@ -121,19 +120,6 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-
-.menu {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-}
-
 .welcome {
     font-weight: bold;
     margin-top: 10px;
@@ -144,4 +130,10 @@ header {
     flex-direction: column;
     align-items: flex-end;
     gap: 5px;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 5px;
 }

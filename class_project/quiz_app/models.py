@@ -58,8 +58,17 @@ class Answer(models.Model):
 class Result(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="results")
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="results")
-    score = models.IntegerField()
+    score = models.IntegerField(null=True)
     attempted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user} - {self.quiz} - {self.score}"
+    
+class UserAnswer(models.Model):
+    result = models.ForeignKey(Result, on_delete=models.CASCADE, related_name="user_answers")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="user_answers")
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.result.user.username} - {self.question.text} - {self.answer.text}"
+
