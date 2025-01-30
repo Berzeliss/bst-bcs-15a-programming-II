@@ -5,9 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
     <title>{{ quiz.title }}</title>
 </head>
 <body>
+    <header>
+        <div class="logo">Mind ★ Voyage</div>
+        <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
+    </header>
     <h2>Quiz Results</h2>
 
     <p>Quiz: <strong>{{ result.quiz.title }}</strong></p>
@@ -36,8 +41,5 @@
         </tr>
         {% endfor %}
     </table>
-
-    <a href="{% url 'index' %}">Go back to home</a>
 </body>
 </html>
-

@@ -20,22 +20,21 @@
                     <img src="{{ profile.avatar.url }}" alt="Profile Picture" width="150">
                 {% endif %}
             </div>
-            <h2>Username</h2>
-            <p>{{ user.username }}</p>
+            <div class="username"><p>{{ user.username }}</p></div>
             <p>{{ user.profile.bio }}</p>
             <!-- Profile Edit Form -->
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Save Changes</button>
+                <button class="submit">Save Changes</button>
             </form>
         </section>
         <section class="score-history">
-            <h3>Score History</h3>
+            <h3 class="history">Score History</h3>
                 {% if results %}
                 <ul>
                     {% for result in results %}
-                        <li><a href="{% url 'result' result.id%}">{{ result.quiz.title }} - Score: {{ result.score }}</a></li>
+                        <li class="score"><a href="{% url 'result' result.id%}">{{ result.quiz.title }} - Score: {{ result.score }}</a></li>
                     {% empty %}
                         <li>No quizzes attempted yet.</li>
                     {% endfor %}

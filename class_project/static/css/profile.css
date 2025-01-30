@@ -19,7 +19,7 @@ header {
     margin-top: 50px;
 }
 
-.photo-placeholder {
+.photo {
     width: 100px;
     height: 100px;
     background: gray;
@@ -79,3 +79,40 @@ header {
     margin-top: 50px;
     text-align: center;
 }
+
+.username {
+    font-size: larger;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.submit {
+    color: black;
+    background-color: rgba(255, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.submit:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+.history {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.score a {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 500px;
+    border: none;
+    background-color: rgba(106, 106, 60, 0.2);
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.score a:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }

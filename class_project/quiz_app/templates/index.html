@@ -40,11 +40,10 @@
             </div>
         </section>
 
-        <!-- Create Your Own Quiz Button 
+        <!-- Create Your Own Quiz Button -->
         {% if user.is_authenticated %}
-            <a href="{% url 'create_quiz' %}">Create your own quiz!</a>
+            <div class="create_quiz"><a href="{% url 'create_quiz' %}">Create your own quiz!</a></div>
         {% endif %}
-        -->
     </main>
 </body>
 </html>
