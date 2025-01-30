@@ -1,5 +1,5 @@
 from django import forms
-from .models import Quiz, Question, Answer
+from .models import *
 from django.forms import inlineformset_factory
 
 class QuizForm(forms.ModelForm):
@@ -16,6 +16,11 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['text', 'is_correct']
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['bio', 'avatar']
 
 QuestionFormSet = inlineformset_factory(Quiz, Question, fields=('text', 'score'), extra=3)
 AnswerFormSet = inlineformset_factory(Question, Answer, fields=('text', 'is_correct'), extra=3)

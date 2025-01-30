@@ -15,19 +15,20 @@
     </header>
     <h1>{{ quiz.title }}</h1>
     <p>Total Questions: {{ quiz.questions.count }}</p>
-    <form method="post">
+    <form method="POST">
         {% csrf_token %}
         {% for question in quiz.questions.all %}
-        <p class="question_text">{{ question.text }}</p>
+            <p class="question_text">{{ question.text }}</p>
             {% for answer in question.answers.all %}
-            <label>
-                <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}" required>
-                {{ answer.text }}
-            </label>
+                <label>
+                    <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}" required>
+                    {{ answer.text }}
+                </label>
             {% endfor %}
         {% endfor %}
+        
         <div style="margin-top: 20px;">
-            <button class="submit">Submit</button>
+            <button type="submit" class="submit">Submit</button>
         </div>
     </form>
 </body>

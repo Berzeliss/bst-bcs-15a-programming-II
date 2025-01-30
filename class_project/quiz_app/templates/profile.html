@@ -11,29 +11,37 @@
 <body>
     <header>
         <div class="logo">Mind ★ Voyage</div>
-        <a href="index.html" class="back">Back to Home</a>
+        <a href="{% url 'index' %}" class="back">Back to Home</a>
     </header>
     <main>
         <section class="profile-info">
             <div class="photo">
-                <img src="{% static 'images/placeholder.jpg' %}" alt="Photo">
-                </a>
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Profile Picture" width="150">
+                {% endif %}
             </div>
             <h2>Username</h2>
             <p>{{ user.username }}</p>
             <p>{{ user.profile.bio }}</p>
-            <img src="{{ user.profile.avatar.url }}" alt="Avatar">
+            <!-- Profile Edit Form -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Changes</button>
+            </form>
         </section>
         <section class="score-history">
             <h3>Score History</h3>
-            <ul>
-                <p>History Quiz: 80%</p>
-                <p>Science Quiz: 90%</p>
-            </ul>
+                {% if results %}
+                <ul>
+                    {% for result in results %}
+                        <li><a href="{% url 'result' result.id%}">{{ result.quiz.title }} - Score: {{ result.score }}</a></li>
+                    {% empty %}
+                        <li>No quizzes attempted yet.</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
         </section>
-        <div class="take-quiz">
-            <button>Take a Quiz</button>
-        </div>
     </main>
 </body>
 </html>
