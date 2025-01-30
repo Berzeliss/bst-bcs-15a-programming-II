@@ -21,7 +21,7 @@ header {
     font-weight: bold;
 }
 
-.profile {
+.profile a {
     color: white;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.65);
@@ -30,7 +30,7 @@ header {
     cursor: pointer;
 }
 
-.profile:hover {
+.profile a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
@@ -52,7 +52,7 @@ header {
     border-radius: 20px;
 }
 
-.create-quiz {
+.create_quiz a {
     background: rgba(245, 245, 220, 0.5);
     border: none;
     padding: 10px 20px;
@@ -62,7 +62,7 @@ header {
     cursor: pointer;
 }
 
-.create-quiz:hover {
+.create_quiz a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
@@ -123,17 +123,18 @@ header {
 .welcome {
     font-weight: bold;
     margin-top: 10px;
+    text-decoration: none;
 }
 
 .right-section {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 5px;
+    gap: 20px;
     position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 10px;
+    top: 10px;
     padding: 10px;
     border-radius: 5px;
+    text-decoration: none;
 }
