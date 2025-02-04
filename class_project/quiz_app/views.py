@@ -49,8 +49,7 @@ def quiz(request, quiz_id):
 
 def result(request, result_id):
     result = get_object_or_404(Result, id=result_id, user=request.user)
-    quiz = result.quiz
-    questions = quiz.questions.all()
+    questions = result.quiz.questions.all()
     total_score = sum(question.score for question in questions)
 
     question_answers = []
@@ -81,7 +80,7 @@ def profile(request):
     results = Result.objects.filter(user=request.user)
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=profile)
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect('profile')
@@ -113,7 +112,4 @@ def create_quiz(request):
         quiz_form = QuizForm()
         question_formset = QuestionFormSet()
 
-    return render(request, 'create_quiz.html', {
-        'quiz_form': quiz_form,
-        'question_formset': question_formset,
-    })
+        return render(request, 'create_quiz.html', {'quiz_form': quiz_form, 'question_formset': question_formset})
