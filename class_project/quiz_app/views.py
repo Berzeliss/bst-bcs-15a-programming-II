@@ -3,6 +3,8 @@ from .models import *
 from django.utils import timezone 
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 
 def index(request):
@@ -113,3 +115,15 @@ def create_quiz(request):
         question_formset = QuestionFormSet()
 
         return render(request, 'create_quiz.html', {'quiz_form': quiz_form, 'question_formset': question_formset})
+
+"""Authentication"""
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, f"Account created for {user.username}. Please log in.")
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
