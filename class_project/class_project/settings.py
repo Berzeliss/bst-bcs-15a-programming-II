@@ -132,6 +132,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Logout guide
+# Authentication redirect
 LOGOUT_REDIRECT_URL = '/quiz_app'
+LOGIN_REDIRECT_URL = '/quiz_app'
+
 
