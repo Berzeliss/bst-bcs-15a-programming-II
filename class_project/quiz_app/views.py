@@ -98,23 +98,35 @@ def profile(request):
 
 @login_required
 def create_quiz(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         quiz_form = QuizForm(request.POST)
-        question_formset = QuestionFormSet(request.POST)
+        question_formset = QuestionInlineFormSet(request.POST, prefix='questions')
+
         if quiz_form.is_valid() and question_formset.is_valid():
             quiz = quiz_form.save(commit=False)
-            quiz.created_by = request.user  # Set the creator
+            quiz.created_by = request.user
             quiz.save()
+            question_formset.instance = quiz
             questions = question_formset.save(commit=False)
+
+            answer_formsets = []
             for question in questions:
-                question.quiz = quiz  # Associate each question with the quiz
+                question.quiz = quiz
                 question.save()
+
+                answer_formset = AnswerInlineFormSet(request.POST, instance=question, prefix=f'answers-{question.id}')
+                if answer_formset.is_valid():
+                    answer_formset.save()
+                answer_formsets.append(answer_formset)
+
             return redirect('quiz_list', category=quiz.category)
+
     else:
         quiz_form = QuizForm()
-        question_formset = QuestionFormSet()
+        question_formset = QuestionInlineFormSet(prefix='questions')
+        answer_formsets = [AnswerInlineFormSet(prefix=f'answers-{i}') for i in range(question_formset.total_form_count())]
 
-        return render(request, 'create_quiz.html', {'quiz_form': quiz_form, 'question_formset': question_formset})
+    return render(request, 'create_quiz.html', {'quiz_form': quiz_form, 'question_formset': question_formset, 'answer_formsets': answer_formsets})
 
 """Authentication"""
 def signup(request):

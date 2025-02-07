@@ -7,7 +7,7 @@ urlpatterns = [
     path('quiz_list/<str:category>/', views.quiz_list, name='quiz_list'),
     path('quiz/<int:quiz_id>/', views.quiz, name='quiz'),
     path('result/<int:result_id>/', views.result, name='result'),
-    path('create', views.create_quiz, name='create_quiz'),
+    path('create/', views.create_quiz, name='create_quiz'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
