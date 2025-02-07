@@ -13,15 +13,97 @@
         <div class="logo">Mind ★ Voyage</div>
         <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
     </header>
-    <form method="post">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('form').delegate('.btn_add_answer', 'click', function () {
+                var $this = $(this);
+                var question_index = $this.attr('id').split('-')[1];
+                var $total_answers = $(':input[name=answer_formset_' + question_index + '-TOTAL_FORMS]');
+                var answer_form_count = parseInt($total_answers.val());
+                $total_answers.val(answer_form_count + 1);
+
+                var $new_answer_form = $('<fieldset class="answer_form">' +
+                    '<legend>Answer</legend>' +
+                    '<p>' +
+                    '<label for="id_answer_formset_' + question_index + '-' + answer_form_count + '-text">Answer:</label>' +
+                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-text" maxlength="256" name="answer_formset_' + question_index + '-' + answer_form_count + '-text" type="text" />' +
+                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-question" name="answer_formset_' + question_index + '-' + answer_form_count + '-question" type="hidden" />' +
+                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-id" name="answer_formset_' + question_index + '-' + answer_form_count + '-id" type="hidden" />' +
+                    '</p>' +
+                    '</fieldset>'
+                );
+
+                $this.parents('.question_form').find('.question_answers').prepend($new_answer_form);
+            });
+
+            $('form').delegate('#btn_add_question', 'click', function () {
+                var $total_questions = $(':input[name=question_formset-TOTAL_FORMS]');
+                var question_form_count = parseInt($total_questions.val());
+                $total_questions.val(question_form_count + 1);
+
+                var answer_form = '<fieldset class="answer_form">' +
+                    '<legend>Answer</legend>' +
+                    '<p>' +
+                    '<label for="id_answer_formset_' + question_form_count + '-0-text">Answer:</label>' +
+                    '<input id="id_answer_formset_' + question_form_count + '-0-text" maxlength="256" name="answer_formset_' + question_form_count + '-0-text" type="text" />' +
+                    '<input id="id_answer_formset_' + question_form_count + '-0-question" name="answer_formset_' + question_form_count + '-0-question" type="hidden" />' +
+                    '<input id="id_answer_formset_' + question_form_count + '-0-id" name="answer_formset_' + question_form_count + '-0-id" type="hidden" />' +
+                    '</p>' +
+                    '</fieldset>';
+
+                var $new_question_form = $(
+                    '<fieldset class="question_form">' +
+                    '<legend>Question</legend>' +
+                    '<p>' +
+                    '<label for="id_question_formset-' + question_form_count + '-text">Question:</label>' +
+                    '<input id="id_question_formset-' + question_form_count + '-text" maxlength="256" name="question_formset-' + question_form_count + '-text" type="text" />' +
+                    '<input id="id_question_formset-' + question_form_count + '-quiz" name="question_formset-' + question_form_count + '-quiz" type="hidden" />' +
+                    '<input id="id_question_formset-' + question_form_count + '-id" name="question_formset-' + question_form_count + '-id" type="hidden" />' +
+                    '</p>' +
+                    '<p><input type="button" value="Add Answer" class="btn_add_answer" id="question-' + question_form_count + '"/></p>' +
+                    '<div class="question_answers">' +
+                    '<input id="id_answer_formset_' + question_form_count + '-TOTAL_FORMS" name="answer_formset_' + question_form_count + '-TOTAL_FORMS" type="hidden" value="1" />' +
+                    '<input id="id_answer_formset_' + question_form_count + '-INITIAL_FORMS" name="answer_formset_' + question_form_count + '-INITIAL_FORMS" type="hidden" value="0" />' +
+                    '<input id="id_answer_formset_' + question_form_count + '-MAX_NUM_FORMS" name="answer_formset_' + question_form_count + '-MAX_NUM_FORMS" type="hidden" value="1000" />' +
+                    answer_form +
+                    '</div >' +
+                    '</fieldset >'
+                );
+
+                $('#questions').prepend($new_question_form);
+            });
+        });
+    </script>
+
+    <h1>Create a Quiz</h1>
+    <form action="" method="post">
         {% csrf_token %}
         {{ quiz_form.as_p }}
-        <h3 class="question">Questions</h3>
-        {{ question_formset.management_form }}
-        {% for form in question_formset %}
-            {{ form.as_p }}
-        {% endfor %}
-        <button class="submit">Create quiz</button>
+
+        <p><input type="button" id="btn_add_question" value="Add Question"/></p>
+
+        <div id="questions">
+            {{ question_formset.management_form }}
+            {% for question_form in question_formset %}
+                <fieldset class="question_form">
+                    <legend>Question</legend>
+                    {{ question_form.as_p }}
+                    <p><input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"/></p>
+
+                    <div class="question_answers">
+                        {{ answer_formsets.forloop.counter0.management_form }}
+                        {% for answer_form in answer_formsets.forloop.counter0 %}
+                            <fieldset class="answer_form">
+                                <legend>Answer</legend>
+                                {{ answer_form.as_p }}
+                            </fieldset>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            {% endfor %}
+        </div>
+        <p><input type="submit" value="Save Quiz"></p>
     </form>
 </body>
 </html>
