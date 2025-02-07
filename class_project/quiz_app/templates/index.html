@@ -15,15 +15,15 @@
             {% if user.is_authenticated %}
                 <li class="welcome">Welcome, {{ user.username }}!</li>
                 <li class="profile"><a href="{% url 'profile' %}">Profile</a></li>
-                <li class="menu-item logout">
-                    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                <li class="logout">
+                    <form action="{% url 'logout' %}" method="POST">
                         {% csrf_token %}
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>
                 </li>
             {% else %}
-                <li class="menu-item login"><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li class="login"><a href="{% url 'login' %}">Login</a></li>
+                <li class="signup"><a href="{% url 'signup' %}">Sign Up</a></li>
             {% endif %}
         </ul>
     </header>

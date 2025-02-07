@@ -1,6 +1,22 @@
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">Mind ★ Voyage</div>
+    </header>
+    <h2 class="login">Login</h2>
+    <form methond="post">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <button class="submit">Login</button>
+    </form>
+</body>
+</html>

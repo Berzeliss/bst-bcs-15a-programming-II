@@ -93,16 +93,17 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
-.logout a {
+.btn-logout {
     color: white;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.65);
     padding: 5px 10px;
     border-radius: 20px;
     cursor: pointer;
+    border: none;
 }
 
-.logout a:hover {
+.btn-logout:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
@@ -137,4 +138,22 @@ header {
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
+}
+
+.right-section li {
+    list-style: none;
+}
+
+.signup a {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 100px;
+}
+
+.signup a:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
