@@ -35,11 +35,13 @@ header {
   }
 
 .submit {
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: rgba(255, 0, 0, 0.6);
     color: black;
-    background-color: rgba(255, 0, 0, 0.3);
+    font-weight: bold;
     border-radius: 20px;
-    border: none;
-    padding: 10px;
+    font-size: larger;
 }
 
 .submit:hover {
