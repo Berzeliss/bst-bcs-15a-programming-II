@@ -13,10 +13,10 @@
         <div class="logo">Mind ★ Voyage</div>
     </header>
     <h2 class="login">Login</h2>
-    <form methond="post">
+    <form method="POST" action="{% url 'login' %}">
        {% csrf_token %}
        {{ form.as_p }}
-       <button class="submit">Login</button>
+       <button class="submit" type="submit">Login</button>
     </form>
 </body>
 </html>
