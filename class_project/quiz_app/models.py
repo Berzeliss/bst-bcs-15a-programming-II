@@ -21,7 +21,7 @@ class Quiz(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)  # Added category
     total_score = models.IntegerField(default=50)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         # self.total_score = sum(question.score for question in self.questions.all())

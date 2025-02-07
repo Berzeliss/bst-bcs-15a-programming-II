@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #C3B091;
+    color: black;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 20px;
+    background-color: #C3B091;
+}
+
+.logo {
+    font-family: fantasy;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.login {
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+.submit {
+    color: black;
+    background-color: rgba(255, 0, 0, 0.3);
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.submit:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
