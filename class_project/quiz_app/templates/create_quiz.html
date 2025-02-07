@@ -28,8 +28,8 @@
                     '<p>' +
                     '<label for="id_answer_formset_' + question_index + '-' + answer_form_count + '-text">Answer:</label>' +
                     '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-text" maxlength="256" name="answer_formset_' + question_index + '-' + answer_form_count + '-text" type="text" />' +
-                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-question" name="answer_formset_' + question_index + '-' + answer_form_count + '-question" type="hidden" />' +
-                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-id" name="answer_formset_' + question_index + '-' + answer_form_count + '-id" type="hidden" />' +
+                    '<input type="radio" name="correct_answer_' + question_index + '" value="' + answer_form_count + '" class="correct-answer-btn"> Mark as Correct' +
+                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-is_correct" name="answer_formset_' + question_index + '-' + answer_form_count + '-is_correct" type="hidden" value="false"/>' +
                     '</p>' +
                     '</fieldset>'
                 );
@@ -47,8 +47,8 @@
                     '<p>' +
                     '<label for="id_answer_formset_' + question_form_count + '-0-text">Answer:</label>' +
                     '<input id="id_answer_formset_' + question_form_count + '-0-text" maxlength="256" name="answer_formset_' + question_form_count + '-0-text" type="text" />' +
-                    '<input id="id_answer_formset_' + question_form_count + '-0-question" name="answer_formset_' + question_form_count + '-0-question" type="hidden" />' +
-                    '<input id="id_answer_formset_' + question_form_count + '-0-id" name="answer_formset_' + question_form_count + '-0-id" type="hidden" />' +
+                    '<input type="radio" name="correct_answer_' + question_form_count + '" value="0" class="correct-answer-btn"> Mark as Correct' +
+                    '<input id="id_answer_formset_' + question_form_count + '-0-is_correct" name="answer_formset_' + question_form_count + '-0-is_correct" type="hidden" value="false"/>' +
                     '</p>' +
                     '</fieldset>';
 
@@ -58,20 +58,24 @@
                     '<p>' +
                     '<label for="id_question_formset-' + question_form_count + '-text">Question:</label>' +
                     '<input id="id_question_formset-' + question_form_count + '-text" maxlength="256" name="question_formset-' + question_form_count + '-text" type="text" />' +
-                    '<input id="id_question_formset-' + question_form_count + '-quiz" name="question_formset-' + question_form_count + '-quiz" type="hidden" />' +
-                    '<input id="id_question_formset-' + question_form_count + '-id" name="question_formset-' + question_form_count + '-id" type="hidden" />' +
                     '</p>' +
                     '<p><input type="button" value="Add Answer" class="btn_add_answer" id="question-' + question_form_count + '"/></p>' +
                     '<div class="question_answers">' +
-                    '<input id="id_answer_formset_' + question_form_count + '-TOTAL_FORMS" name="answer_formset_' + question_form_count + '-TOTAL_FORMS" type="hidden" value="1" />' +
-                    '<input id="id_answer_formset_' + question_form_count + '-INITIAL_FORMS" name="answer_formset_' + question_form_count + '-INITIAL_FORMS" type="hidden" value="0" />' +
-                    '<input id="id_answer_formset_' + question_form_count + '-MAX_NUM_FORMS" name="answer_formset_' + question_form_count + '-MAX_NUM_FORMS" type="hidden" value="1000" />' +
                     answer_form +
                     '</div >' +
                     '</fieldset >'
                 );
 
                 $('#questions').prepend($new_question_form);
+            });
+
+            $(document).on('change', '.correct-answer-btn', function () {
+                var questionIndex = $(this).attr('name').split('_')[2];
+                $('.correct-answer-btn[name="correct_answer_' + questionIndex + '"]').each(function () {
+                    var answerIndex = $(this).val();
+                    var isChecked = $(this).is(':checked');
+                    $('#id_answer_formset_' + questionIndex + '-' + answerIndex + '-is_correct').val(isChecked ? 'true' : 'false');
+                });
             });
         });
     </script>
@@ -97,6 +101,8 @@
                             <fieldset class="answer_form">
                                 <legend>Answer</legend>
                                 {{ answer_form.as_p }}
+                                <input type="radio" name="correct_answer_{{ forloop.parentloop.counter0 }}" value="{{ forloop.counter0 }}" class="correct-answer-btn"> Mark as Correct
+                                <input id="id_answer_formset_{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}-is_correct" name="answer_formset_{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}-is_correct" type="hidden" value="false"/>
                             </fieldset>
                         {% endfor %}
                     </div>
