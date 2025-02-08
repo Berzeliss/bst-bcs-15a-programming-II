@@ -13,103 +13,34 @@
         <div class="logo">Mind ★ Voyage</div>
         <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
     </header>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('form').delegate('.btn_add_answer', 'click', function () {
-                var $this = $(this);
-                var question_index = $this.attr('id').split('-')[1];
-                var $total_answers = $(':input[name=answer_formset_' + question_index + '-TOTAL_FORMS]');
-                var answer_form_count = parseInt($total_answers.val());
-                $total_answers.val(answer_form_count + 1);
-
-                var $new_answer_form = $('<fieldset class="answer_form">' +
-                    '<legend>Answer</legend>' +
-                    '<p>' +
-                    '<label for="id_answer_formset_' + question_index + '-' + answer_form_count + '-text">Answer:</label>' +
-                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-text" maxlength="256" name="answer_formset_' + question_index + '-' + answer_form_count + '-text" type="text" />' +
-                    '<input type="radio" name="correct_answer_' + question_index + '" value="' + answer_form_count + '" class="correct-answer-btn"> Mark as Correct' +
-                    '<input id="id_answer_formset_' + question_index + '-' + answer_form_count + '-is_correct" name="answer_formset_' + question_index + '-' + answer_form_count + '-is_correct" type="hidden" value="false"/>' +
-                    '</p>' +
-                    '</fieldset>'
-                );
-
-                $this.parents('.question_form').find('.question_answers').prepend($new_answer_form);
-            });
-
-            $('form').delegate('#btn_add_question', 'click', function () {
-                var $total_questions = $(':input[name=question_formset-TOTAL_FORMS]');
-                var question_form_count = parseInt($total_questions.val());
-                $total_questions.val(question_form_count + 1);
-
-                var answer_form = '<fieldset class="answer_form">' +
-                    '<legend>Answer</legend>' +
-                    '<p>' +
-                    '<label for="id_answer_formset_' + question_form_count + '-0-text">Answer:</label>' +
-                    '<input id="id_answer_formset_' + question_form_count + '-0-text" maxlength="256" name="answer_formset_' + question_form_count + '-0-text" type="text" />' +
-                    '<input type="radio" name="correct_answer_' + question_form_count + '" value="0" class="correct-answer-btn"> Mark as Correct' +
-                    '<input id="id_answer_formset_' + question_form_count + '-0-is_correct" name="answer_formset_' + question_form_count + '-0-is_correct" type="hidden" value="false"/>' +
-                    '</p>' +
-                    '</fieldset>';
-
-                var $new_question_form = $(
-                    '<fieldset class="question_form">' +
-                    '<legend>Question</legend>' +
-                    '<p>' +
-                    '<label for="id_question_formset-' + question_form_count + '-text">Question:</label>' +
-                    '<input id="id_question_formset-' + question_form_count + '-text" maxlength="256" name="question_formset-' + question_form_count + '-text" type="text" />' +
-                    '</p>' +
-                    '<p><input type="button" value="Add Answer" class="btn_add_answer" id="question-' + question_form_count + '"/></p>' +
-                    '<div class="question_answers">' +
-                    answer_form +
-                    '</div >' +
-                    '</fieldset >'
-                );
-
-                $('#questions').prepend($new_question_form);
-            });
-
-            $(document).on('change', '.correct-answer-btn', function () {
-                var questionIndex = $(this).attr('name').split('_')[2];
-                $('.correct-answer-btn[name="correct_answer_' + questionIndex + '"]').each(function () {
-                    var answerIndex = $(this).val();
-                    var isChecked = $(this).is(':checked');
-                    $('#id_answer_formset_' + questionIndex + '-' + answerIndex + '-is_correct').val(isChecked ? 'true' : 'false');
-                });
-            });
-        });
-    </script>
 
     <h1>Create a Quiz</h1>
-    <form action="" method="post">
+    <form method="post">
         {% csrf_token %}
         {{ quiz_form.as_p }}
 
-        <p><input type="button" id="btn_add_question" value="Add Question"/></p>
-
-        <div id="questions">
-            {{ question_formset.management_form }}
+        <h3>Questions</h3>
+        {{ question_formset.management_form }}
+        <div id="question-container">
             {% for question_form in question_formset %}
-                <fieldset class="question_form">
-                    <legend>Question</legend>
+                <div class="question-block">
+                    <h4>Question {{ forloop.counter }}</h4>
                     {{ question_form.as_p }}
-                    <p><input type="button" value="Add Answer" class="btn_add_answer" id="question-{{ forloop.counter0 }}"/></p>
-
-                    <div class="question_answers">
-                        {{ answer_formsets.forloop.counter0.management_form }}
-                        {% for answer_form in answer_formsets.forloop.counter0 %}
-                            <fieldset class="answer_form">
-                                <legend>Answer</legend>
+                    
+                    <h5>Answers</h5>
+                    {{ question_form.nested.management_form }}
+                    <div class="answer-container">
+                        {% for answer_form in question_form.nested %}
+                            <div class="answer-block">
                                 {{ answer_form.as_p }}
-                                <input type="radio" name="correct_answer_{{ forloop.parentloop.counter0 }}" value="{{ forloop.counter0 }}" class="correct-answer-btn"> Mark as Correct
-                                <input id="id_answer_formset_{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}-is_correct" name="answer_formset_{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}-is_correct" type="hidden" value="false"/>
-                            </fieldset>
+                            </div>
                         {% endfor %}
                     </div>
-                </fieldset>
+                </div>
             {% endfor %}
         </div>
-        <p><input type="submit" value="Save Quiz"></p>
-    </form>
+        <button type="submit">Save Quiz</button>
+    </form>      
 </body>
 </html>
+

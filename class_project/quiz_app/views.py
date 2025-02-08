@@ -88,45 +88,51 @@ def profile(request):
             return redirect('profile')
     else:
         form = UserProfileForm(instance=profile)
-
-    context = {
-        'profile': profile,
-        'form': form,
-        'results': results
-    }
-    return render(request, 'profile.html', context)
+        context = {
+            'profile': profile,
+            'form': form,
+            'results': results
+        }
+        return render(request, 'profile.html', context)
 
 @login_required
 def create_quiz(request):
     if request.method == "POST":
         quiz_form = QuizForm(request.POST)
-        question_formset = QuestionInlineFormSet(request.POST, prefix='questions')
+        question_formset = QuestionFormSet(request.POST, prefix='questions')
 
         if quiz_form.is_valid() and question_formset.is_valid():
             quiz = quiz_form.save(commit=False)
             quiz.created_by = request.user
             quiz.save()
             question_formset.instance = quiz
-            questions = question_formset.save(commit=False)
 
-            answer_formsets = []
-            for question in questions:
+            for question_form in question_formset:
+                question = question_form.save(commit=False)
                 question.quiz = quiz
                 question.save()
 
-                answer_formset = AnswerInlineFormSet(request.POST, instance=question, prefix=f'answers-{question.id}')
-                if answer_formset.is_valid():
-                    answer_formset.save()
-                answer_formsets.append(answer_formset)
+                # handle the answers
+                if question_form.nested.is_valid():
+                    question_form.nested.instance = question
+                    question_form.nested.save()
 
             return redirect('quiz_list', category=quiz.category)
+        else:
+            print("Quiz form errors:", quiz_form.errors)
+            print("Question formset errors:", question_formset.errors)
+            for question_form in question_formset:
+                print("Answer formset errors:", question_form.nested.errors)
 
     else:
         quiz_form = QuizForm()
-        question_formset = QuestionInlineFormSet(prefix='questions')
-        answer_formsets = [AnswerInlineFormSet(prefix=f'answers-{i}') for i in range(question_formset.total_form_count())]
+        question_formset = QuestionFormSet(prefix='questions')
 
-    return render(request, 'create_quiz.html', {'quiz_form': quiz_form, 'question_formset': question_formset, 'answer_formsets': answer_formsets})
+    return render(request, 'create_quiz.html', {
+        'quiz_form': quiz_form,
+        'question_formset': question_formset
+    })
+
 
 """Authentication"""
 def signup(request):

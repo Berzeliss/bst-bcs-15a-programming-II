@@ -1,6 +1,6 @@
 from django import forms
 from .models import *
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, BaseInlineFormSet
 
 class QuizForm(forms.ModelForm):
     class Meta:
@@ -22,5 +22,18 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['bio', 'avatar']
 
-QuestionInlineFormSet = inlineformset_factory(Quiz, Question, form=QuestionForm, extra=5, can_delete=True)
-AnswerInlineFormSet = inlineformset_factory(Question, Answer, form=AnswerForm, extra=4, can_delete=True)
+
+# handle nested inlines
+AnswerFormSet = inlineformset_factory(Question, Answer, form=AnswerForm, extra=3)
+
+class BaseQuestionFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        form.nested = AnswerFormSet(
+            instance=form.instance,
+            data=form.data if form.is_bound else None,
+            files=form.files if form.is_bound else None,
+            prefix=f'answers-{form.prefix}-{AnswerFormSet.get_default_prefix()}'
+        )
+
+QuestionFormSet = inlineformset_factory(Quiz, Question, form=QuestionForm, formset=BaseQuestionFormSet, extra=3)
