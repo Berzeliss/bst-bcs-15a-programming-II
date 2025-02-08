@@ -21,7 +21,7 @@ header {
     font-weight: bold;
 }
 
-.back a {
+.back {
     color: white;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.65);
@@ -30,18 +30,18 @@ header {
     cursor: pointer;
 }
 
-.back a:hover {
+.back:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
 .submit {
-    margin: 10px auto;
-    padding: 10px 20px;
-    background-color: rgba(255, 0, 0, 0.6);
     color: black;
-    font-weight: bold;
+    background-color: rgba(255, 0, 0, 0.3);
     border-radius: 20px;
-    font-size: larger;
+    border: none;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
 }
 
 .submit:hover {
@@ -53,4 +53,10 @@ header {
     font-weight: bold;
     text-decoration: underline;
     
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
 }

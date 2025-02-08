@@ -21,7 +21,7 @@ header {
     font-weight: bold;
 }
 
-.back a {
+.back {
     color: white;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.65);
@@ -30,7 +30,7 @@ header {
     cursor: pointer;
 }
 
-.back a:hover {
+.back:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
@@ -55,3 +55,9 @@ h1 {
 .quiz_title a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
+
+.list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

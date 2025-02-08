@@ -21,19 +21,6 @@ header {
     font-weight: bold;
 }
 
-.profile a {
-    color: white;
-    text-decoration: none;
-    background: rgba(0, 0, 0, 0.65);
-    padding: 5px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.profile a:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-
 .quiz-cards {
     display: flex;
     justify-content: center;
@@ -93,38 +80,12 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
-.btn-logout {
-    color: white;
-    text-decoration: none;
-    background: rgba(0, 0, 0, 0.65);
-    padding: 5px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-logout:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-.login a {
-    color: white;
-    text-decoration: none;
-    background: rgba(0, 0, 0, 0.65);
-    padding: 10px 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    margin: 100px;
-}
-
 .login a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.welcome {
-    font-weight: bold;
-    margin-top: 10px;
-    text-decoration: none;
+.signup a:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .right-section {
@@ -138,22 +99,63 @@ header {
     padding: 10px;
     border-radius: 5px;
     text-decoration: none;
+    z-index: 10;
 }
 
 .right-section li {
     list-style: none;
+    margin: 0;
 }
 
-.signup a {
+.right-section li a,
+.right-section li form button {
     color: white;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.65);
-    padding: 10px 40px;
+    padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    margin: 100px;
 }
 
-.signup a:hover {
+.right-section li a:hover,
+.right-section li form button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.login a,
+.signup a {
+    padding: 10px 10px; 
+}
+
+.welcome {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile a {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.logout form button {
+    color: white;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+.profile a:hover,
+.logout form button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.signup a {
+    margin-top: 30px;
 }
