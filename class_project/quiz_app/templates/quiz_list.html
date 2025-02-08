@@ -11,18 +11,20 @@
 <body>
     <header>
         <div class="logo">Mind ★ Voyage</div>
-        <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
+        <a href="{% url 'index' %}" class="back">Back to Home</a>
     </header>
-    <h1>Available Quizzes</h1>
-    {% if quizzes %}
-    <ul>
-        {% for quiz in quizzes %}
-            <li class="quiz_title"><a href="{% url 'quiz' quiz.id %}">{{ quiz.title }}</a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <p>No quizzes available in this category.</p>
-    {% endif %}
+    <section class="list">
+        <h1>Available Quizzes</h1>
+            {% if quizzes %}
+        <ul>
+            {% for quiz in quizzes %}
+                <li class="quiz_title"><a href="{% url 'quiz' quiz.id %}">{{ quiz.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No quizzes available in this category.</p>
+        {% endif %}
+    </section>
 </body>
 </html>
 

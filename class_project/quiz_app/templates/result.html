@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
     <title>{{ quiz.title }}</title>
 </head>
 <body>
     <header>
         <div class="logo">Mind ★ Voyage</div>
-        <li class="back"><a href="{% url 'index' %}">Back to Home</a></li>
+        <a href="{% url 'index' %}" class="back">Back to Home</a>
     </header>
     <h2>Quiz Results</h2>
 
@@ -27,7 +27,7 @@
     {% endif %}
 
     <h3>Review Your Answers</h3>
-    <table>
+    <table class="table">
         <tr>
             <th>Question</th>
             <th>Your Answer</th>
@@ -35,7 +35,7 @@
         </tr>
         {% for qa in question_answers %}
         <tr>
-            <td>{{ qa.question }}</td>
+            <td class="question">{{ qa.question }}</td>
             <td>{{ qa.user_answer }}</td>
             <td>{{ qa.correct_answer }}</td>
         </tr>
