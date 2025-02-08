@@ -18,16 +18,32 @@
     <form method="post">
         {% csrf_token %}
         {{ quiz_form.as_p }}
+
+        <h3>Questions</h3>
         {{ question_formset.management_form }}
-        {% for question_form in question_formset %}
-            {{ question_form.as_p }}
-            {{ question_form.nested.management_form }}
-            {% for answer_form in question_form.nested %}
-                {{ answer_form.as_p }}
+        <div id="question-container">
+            {% for question_form in question_formset %}
+                <div class="question-block">
+                    <h4>Question {{ forloop.counter }}</h4>
+                    {{ question_form.as_p }}
+                    
+                    <h5>Answers</h5>
+                    {{ question_form.nested.management_form }}
+                    <div class="answer-container">
+                        {% for answer_form in question_form.nested %}
+                            <div class="answer-block">
+                                {{ answer_form.as_p }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="button" class="add-answer">Add Answer</button>
+                </div>
             {% endfor %}
-        {% endfor %}
+        </div>
+
+        <button type="button" id="add-question">Add Question</button>
         <button type="submit">Save Quiz</button>
-    </form>
-    
+    </form>       
 </body>
 </html>

@@ -24,7 +24,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 # handle nested inlines
-AnswerFormSet = inlineformset_factory(Question, Answer, form=AnswerForm, extra=1)
+AnswerFormSet = inlineformset_factory(Question, Answer, form=AnswerForm, extra=3)
 
 class BaseQuestionFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
@@ -36,4 +36,4 @@ class BaseQuestionFormSet(BaseInlineFormSet):
             prefix=f'answers-{form.prefix}-{AnswerFormSet.get_default_prefix()}'
         )
 
-QuestionFormSet = inlineformset_factory(Quiz, Question, form=QuestionForm, formset=BaseQuestionFormSet, extra=1)
+QuestionFormSet = inlineformset_factory(Quiz, Question, form=QuestionForm, formset=BaseQuestionFormSet, extra=3)
