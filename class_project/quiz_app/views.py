@@ -106,13 +106,13 @@ def create_quiz(request):
             quiz.created_by = request.user
             quiz.save()
             question_formset.instance = quiz
-            questions = question_formset.save(commit=False)
 
             for question_form in question_formset:
                 question = question_form.save(commit=False)
                 question.quiz = quiz
                 question.save()
 
+                # handle the answers
                 if question_form.nested.is_valid():
                     question_form.nested.instance = question
                     question_form.nested.save()
