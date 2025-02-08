@@ -22,5 +22,5 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['bio', 'avatar']
 
-QuestionInlineFormSet = inlineformset_factory(Quiz, Question, form=QuestionForm, extra=5, can_delete=True)
+QuestionInlineFormSet = inlineformset_factory(Quiz, Question, form=QuestionForm, extra=1, can_delete=True)
 AnswerInlineFormSet = inlineformset_factory(Question, Answer, form=AnswerForm, extra=4, can_delete=True)
